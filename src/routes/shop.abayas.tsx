@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ProductListing } from "@/components/storefront/product-ui";
+export const Route = createFileRoute("/shop/abayas")({ head: () => ({ meta: [{ title: "Abayas | Abayas & Jalabayas Jos" }, { name: "description", content: "Discover elegant, thoughtfully selected abayas in Jos, Plateau State." }, { property: "og:title", content: "Abayas | Abayas & Jalabayas Jos" }, { property: "og:description", content: "Discover elegant, thoughtfully selected abayas in Jos, Plateau State." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: () => <ProductListing category="Abayas"/> });
