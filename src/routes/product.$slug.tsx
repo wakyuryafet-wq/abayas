@@ -1,0 +1,5 @@
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { ProductDetails } from "@/components/storefront/product-ui";
+import { demoProducts } from "@/data/demo-products";
+export const Route = createFileRoute("/product/$slug")({ loader: ({ params }) => { const product = demoProducts.find((item) => item.slug === params.slug); if (!product) throw notFound(); return product; }, head: ({ loaderData }) => ({ meta: [{ title: `${loaderData.name} | Abayas & Jalabayas` }, { name: "description", content: loaderData.description }, { property: "og:title", content: `${loaderData.name} | Abayas & Jalabayas` }, { property: "og:description", content: loaderData.description }, { property: "og:type", content: "product" }, { name: "twitter:card", content: "summary_large_image" }] }), component: ProductPage });
+function ProductPage() { const product = Route.useLoaderData(); return <ProductDetails product={product}/>; }
