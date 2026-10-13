@@ -9,27 +9,273 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as CartRouteImport } from './routes/cart'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as OrderConfirmationRouteImport } from './routes/order-confirmation'
+import { Route as OrderTrackingRouteImport } from './routes/order-tracking'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ProductSlugRouteImport } from './routes/product.$slug'
+import { Route as ShopAbayasRouteImport } from './routes/shop.abayas'
+import { Route as ShopAccessoriesRouteImport } from './routes/shop.accessories'
+import { Route as ShopJalabiyasRouteImport } from './routes/shop.jalabiyas'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderConfirmationRoute = OrderConfirmationRouteImport.update({
+  id: '/order-confirmation',
+  path: '/order-confirmation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderTrackingRoute = OrderTrackingRouteImport.update({
+  id: '/order-tracking',
+  path: '/order-tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductSlugRoute = ProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopAbayasRoute = ShopAbayasRouteImport.update({
+  id: '/abayas',
+  path: '/abayas',
+  getParentRoute: () => ShopRoute,
+} as any)
+const ShopAccessoriesRoute = ShopAccessoriesRouteImport.update({
+  id: '/accessories',
+  path: '/accessories',
+  getParentRoute: () => ShopRoute,
+} as any)
+const ShopJalabiyasRoute = ShopJalabiyasRouteImport.update({
+  id: '/jalabiyas',
+  path: '/jalabiyas',
+  getParentRoute: () => ShopRoute,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/order-confirmation': typeof OrderConfirmationRoute
+  '/order-tracking': typeof OrderTrackingRoute
+  '/shop': typeof ShopRouteWithChildren
+  '/product/$slug': typeof ProductSlugRoute
+  '/shop/abayas': typeof ShopAbayasRoute
+  '/shop/accessories': typeof ShopAccessoriesRoute
+  '/shop/jalabiyas': typeof ShopJalabiyasRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/order-confirmation': typeof OrderConfirmationRoute
+  '/order-tracking': typeof OrderTrackingRoute
+  '/shop': typeof ShopRouteWithChildren
+  '/product/$slug': typeof ProductSlugRoute
+  '/shop/abayas': typeof ShopAbayasRoute
+  '/shop/accessories': typeof ShopAccessoriesRoute
+  '/shop/jalabiyas': typeof ShopJalabiyasRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/order-confirmation': typeof OrderConfirmationRoute
+  '/order-tracking': typeof OrderTrackingRoute
+  '/shop': typeof ShopRouteWithChildren
+  '/product/$slug': typeof ProductSlugRoute
+  '/shop/abayas': typeof ShopAbayasRoute
+  '/shop/accessories': typeof ShopAccessoriesRoute
+  '/shop/jalabiyas': typeof ShopJalabiyasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths:
+    | '/'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/order-confirmation'
+    | '/order-tracking'
+    | '/shop'
+    | '/product/$slug'
+    | '/shop/abayas'
+    | '/shop/accessories'
+    | '/shop/jalabiyas'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to:
+    | '/'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/order-confirmation'
+    | '/order-tracking'
+    | '/shop'
+    | '/product/$slug'
+    | '/shop/abayas'
+    | '/shop/accessories'
+    | '/shop/jalabiyas'
+  id:
+    | '__root__'
+    | '/'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/order-confirmation'
+    | '/order-tracking'
+    | '/shop'
+    | '/product/$slug'
+    | '/shop/abayas'
+    | '/shop/accessories'
+    | '/shop/jalabiyas'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  CartRoute: typeof CartRoute
+  CheckoutRoute: typeof CheckoutRoute
+  ContactRoute: typeof ContactRoute
+  OrderConfirmationRoute: typeof OrderConfirmationRoute
+  OrderTrackingRoute: typeof OrderTrackingRoute
+  ShopRoute: typeof ShopRouteWithChildren
+  ProductSlugRoute: typeof ProductSlugRoute
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-confirmation': {
+      id: '/order-confirmation'
+      path: '/order-confirmation'
+      fullPath: '/order-confirmation'
+      preLoaderRoute: typeof OrderConfirmationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-tracking': {
+      id: '/order-tracking'
+      path: '/order-tracking'
+      fullPath: '/order-tracking'
+      preLoaderRoute: typeof OrderTrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/$slug': {
+      id: '/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/product/$slug'
+      preLoaderRoute: typeof ProductSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop/abayas': {
+      id: '/shop/abayas'
+      path: '/abayas'
+      fullPath: '/shop/abayas'
+      preLoaderRoute: typeof ShopAbayasRouteImport
+      parentRoute: typeof ShopRoute
+    }
+    '/shop/accessories': {
+      id: '/shop/accessories'
+      path: '/accessories'
+      fullPath: '/shop/accessories'
+      preLoaderRoute: typeof ShopAccessoriesRouteImport
+      parentRoute: typeof ShopRoute
+    }
+    '/shop/jalabiyas': {
+      id: '/shop/jalabiyas'
+      path: '/jalabiyas'
+      fullPath: '/shop/jalabiyas'
+      preLoaderRoute: typeof ShopJalabiyasRouteImport
+      parentRoute: typeof ShopRoute
+    }
+  }
+}
+
+interface ShopRouteChildren {
+  ShopAbayasRoute: typeof ShopAbayasRoute
+  ShopAccessoriesRoute: typeof ShopAccessoriesRoute
+  ShopJalabiyasRoute: typeof ShopJalabiyasRoute
+}
+
+const ShopRouteChildren: ShopRouteChildren = {
+  ShopAbayasRoute: ShopAbayasRoute,
+  ShopAccessoriesRoute: ShopAccessoriesRoute,
+  ShopJalabiyasRoute: ShopJalabiyasRoute,
+}
+
+const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  CartRoute: CartRoute,
+  CheckoutRoute: CheckoutRoute,
+  ContactRoute: ContactRoute,
+  OrderConfirmationRoute: OrderConfirmationRoute,
+  OrderTrackingRoute: OrderTrackingRoute,
+  ShopRoute: ShopRouteWithChildren,
+  ProductSlugRoute: ProductSlugRoute,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
