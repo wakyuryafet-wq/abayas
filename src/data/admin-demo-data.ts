@@ -132,38 +132,38 @@ export function getAdminMetrics(records: Record<AdminSection, AdminRecord[]>) {
   const products = records.products;
   const sales = records.sales;
   const expenses = records.expenses;
-  const monthlySales = sales.filter((sale) => String(sale.date).startsWith("2026-10"));
+  const monthlySales = sales.filter((sale) => String(sale["date"]).startsWith("2026-10"));
   return {
-    todaySalesKobo: sales.filter((sale) => sale.date === ADMIN_SAMPLE_DATE).reduce((sum, sale) => sum + Number(sale.revenueKobo), 0),
-    monthSalesKobo: monthlySales.reduce((sum, sale) => sum + Number(sale.revenueKobo), 0),
+    todaySalesKobo: sales.filter((sale) => sale["date"] === ADMIN_SAMPLE_DATE).reduce((sum, sale) => sum + Number(sale["revenueKobo"]), 0),
+    monthSalesKobo: monthlySales.reduce((sum, sale) => sum + Number(sale["revenueKobo"]), 0),
     orderCount: records.orders.length,
-    pendingOrders: records.orders.filter((order) => order.status === "Pending").length,
-    productsInStock: products.filter((product) => Number(product.stock) > 0).length,
-    lowStockProducts: products.filter((product) => Number(product.stock) > 0 && Number(product.stock) < Number(product.reorderAt)).length,
-    outOfStockVariants: records.inventory.filter((variant) => Number(variant.onHand) === 0).length,
-    inventoryValueKobo: records.inventory.reduce((sum, variant) => sum + Number(variant.onHand) * Number(variant.costKobo), 0),
-    expensesKobo: expenses.reduce((sum, expense) => sum + Number(expense.amountKobo), 0),
-    estimatedGrossProfitKobo: monthlySales.reduce((sum, sale) => sum + Number(sale.revenueKobo) - Number(sale.costKobo), 0) - expenses.reduce((sum, expense) => sum + Number(expense.amountKobo), 0),
+    pendingOrders: records.orders.filter((order) => order["status"] === "Pending").length,
+    productsInStock: products.filter((product) => Number(product["stock"]) > 0).length,
+    lowStockProducts: products.filter((product) => Number(product["stock"]) > 0 && Number(product["stock"]) < Number(product["reorderAt"])).length,
+    outOfStockVariants: records.inventory.filter((variant) => Number(variant["onHand"]) === 0).length,
+    inventoryValueKobo: records.inventory.reduce((sum, variant) => sum + Number(variant["onHand"]) * Number(variant["costKobo"]), 0),
+    expensesKobo: expenses.reduce((sum, expense) => sum + Number(expense["amountKobo"]), 0),
+    estimatedGrossProfitKobo: monthlySales.reduce((sum, sale) => sum + Number(sale["revenueKobo"]) - Number(sale["costKobo"]), 0) - expenses.reduce((sum, expense) => sum + Number(expense["amountKobo"]), 0),
   };
 }
 
 export function getSalesChartData(sales: AdminRecord[]) {
   const byDate = new Map<string, number>();
-  sales.filter((sale) => String(sale.date).startsWith("2026-10")).forEach((sale) => {
-    const date = String(sale.date);
-    byDate.set(date, (byDate.get(date) ?? 0) + Number(sale.revenueKobo));
+  sales.filter((sale) => String(sale["date"]).startsWith("2026-10")).forEach((sale) => {
+    const date = String(sale["date"]);
+    byDate.set(date, (byDate.get(date) ?? 0) + Number(sale["revenueKobo"]));
   });
   return [...byDate.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([date, salesKobo]) => ({ date: date.slice(5), salesKobo }));
 }
 
 export function getTopProductsChartData(sales: AdminRecord[]) {
   const totals = new Map<string, number>();
-  sales.forEach((sale) => totals.set(String(sale.product), (totals.get(String(sale.product)) ?? 0) + Number(sale.quantity)));
+  sales.forEach((sale) => totals.set(String(sale["product"]), (totals.get(String(sale["product"])) ?? 0) + Number(sale["quantity"])));
   return [...totals.entries()].map(([name, units]) => ({ name, units })).sort((a, b) => b.units - a.units).slice(0, 5);
 }
 
 export function getCategoryChartData(sales: AdminRecord[]) {
   const totals = new Map<string, number>();
-  sales.forEach((sale) => totals.set(String(sale.category), (totals.get(String(sale.category)) ?? 0) + Number(sale.revenueKobo)));
+  sales.forEach((sale) => totals.set(String(sale["category"]), (totals.get(String(sale["category"])) ?? 0) + Number(sale["revenueKobo"])));
   return [...totals.entries()].map(([name, salesKobo]) => ({ name, salesKobo }));
 }
