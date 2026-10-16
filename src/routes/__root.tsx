@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useRouterState,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
@@ -122,15 +123,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const isAdminRoute = useRouterState({ select: (state) => state.location.pathname.startsWith("/admin") });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <StoreProvider>
-        <StoreHeader />
-        <main><Outlet /></main>
-        <StoreFooter />
-        <WhatsAppFloat />
-      </StoreProvider>
+      {isAdminRoute ? <Outlet /> : (
+        <StoreProvider>
+          <StoreHeader />
+          <main><Outlet /></main>
+          <StoreFooter />
+          <WhatsAppFloat />
+        </StoreProvider>
+      )}
     </QueryClientProvider>
   );
 }
