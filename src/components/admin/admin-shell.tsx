@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Dashboard", href: "/admin/", icon: LayoutDashboard },
+  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Products", href: "/admin/products", icon: Package },
   { label: "Inventory", href: "/admin/inventory", icon: Boxes },
   { label: "Orders", href: "/admin/orders", icon: ShoppingBag },
@@ -39,13 +39,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const active = navItems.find((item) => item.href === pathname || (item.href !== "/admin/" && pathname.startsWith(item.href)));
+  const active = navItems.find((item) => item.href === pathname || (item.href !== "/admin" && pathname.startsWith(item.href)));
   const activeLabel = active?.label ?? "Dashboard";
 
   const navigation = (mobile = false) => (
     <>
       <div className="flex h-20 items-center justify-between border-b border-sidebar-border px-5">
-        <Link to="/admin/" className="min-w-0" onClick={() => setMobileOpen(false)}>
+        <Link to="/admin" className="min-w-0" onClick={() => setMobileOpen(false)}>
           <span className="block font-display text-xl leading-none text-sidebar-foreground">A&J</span>
           <span className={cn("mt-1 block text-[9px] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/60", collapsed && !mobile && "sr-only")}>Studio · Jos</span>
         </Link>
