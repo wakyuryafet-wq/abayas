@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the public shop's demo catalog in `src/data/demo-products.ts` and all volatile cart/order state in the storefront context; this keeps Phase 1 explicitly frontend-only and makes a later data-source replacement straightforward.
+- Keep admin pages in the `/admin` TanStack layout (`admin.tsx`) with one `admin.<section>.tsx` leaf per screen; the layout owns admin state and shell so access checks and persistence can be added without coupling storefront routes.

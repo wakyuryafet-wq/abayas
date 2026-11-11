@@ -14,16 +14,177 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inventory_variants: {
+        Row: {
+          cost_kobo: number
+          id: string
+          on_hand: number
+          product_id: string
+          product_name: string
+          reorder_at: number
+          sku: string
+          status: string
+          updated_at: string
+          variant: string
+        }
+        Insert: {
+          cost_kobo?: number
+          id?: string
+          on_hand?: number
+          product_id: string
+          product_name: string
+          reorder_at?: number
+          sku: string
+          status?: string
+          updated_at?: string
+          variant: string
+        }
+        Update: {
+          cost_kobo?: number
+          id?: string
+          on_hand?: number
+          product_id?: string
+          product_name?: string
+          reorder_at?: number
+          sku?: string
+          status?: string
+          updated_at?: string
+          variant?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inventory_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_address: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          id: string
+          items: number
+          order_date: string
+          order_number: string
+          status: string
+          total_kobo: number
+        }
+        Insert: {
+          created_at?: string
+          customer_address?: string
+          customer_email?: string
+          customer_name: string
+          customer_phone?: string
+          id?: string
+          items?: number
+          order_date?: string
+          order_number: string
+          status?: string
+          total_kobo?: number
+        }
+        Update: {
+          created_at?: string
+          customer_address?: string
+          customer_email?: string
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          items?: number
+          order_date?: string
+          order_number?: string
+          status?: string
+          total_kobo?: number
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: string
+          cost_kobo: number
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          name: string
+          price_kobo: number
+          reorder_at: number
+          sku: string
+          status: string
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          cost_kobo?: number
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          name: string
+          price_kobo?: number
+          reorder_at?: number
+          sku: string
+          status?: string
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          cost_kobo?: number
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          price_kobo?: number
+          reorder_at?: number
+          sku?: string
+          status?: string
+          stock?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_admin_access: { Args: { _user_id: string }; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "owner" | "staff"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +311,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["owner", "staff"],
+    },
   },
 } as const
