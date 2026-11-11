@@ -14,4 +14,24 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it.each([
+    "/admin",
+    "/admin/products",
+    "/admin/inventory",
+    "/admin/orders",
+    "/admin/sales",
+    "/admin/customers",
+    "/admin/suppliers",
+    "/admin/expenses",
+    "/admin/reports",
+    "/admin/settings",
+  ])("matches the dedicated admin page at %s", (path) => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    const matches = router.matchRoutes(path);
+
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.some((match) => match.routeId === "/admin")).toBe(true);
+  });
 });

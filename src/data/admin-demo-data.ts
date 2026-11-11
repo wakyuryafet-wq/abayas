@@ -17,7 +17,7 @@ export type AdminRecord = {
 };
 
 export const adminNavigation = [
-  { label: "Dashboard", path: "/admin/", key: "dashboard" },
+  { label: "Dashboard", path: "/admin", key: "dashboard" },
   { label: "Products", path: "/admin/products", key: "products" },
   { label: "Inventory", path: "/admin/inventory", key: "inventory" },
   { label: "Orders", path: "/admin/orders", key: "orders" },
