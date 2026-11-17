@@ -106,45 +106,57 @@ export type Database = {
       products: {
         Row: {
           category: string
+          colours: string[]
           cost_kobo: number
           created_at: string
           description: string
           id: string
           image_url: string | null
+          is_published: boolean
           name: string
           price_kobo: number
           reorder_at: number
+          sizes: string[]
           sku: string
+          slug: string | null
           status: string
           stock: number
           updated_at: string
         }
         Insert: {
           category: string
+          colours?: string[]
           cost_kobo?: number
           created_at?: string
           description?: string
           id?: string
           image_url?: string | null
+          is_published?: boolean
           name: string
           price_kobo?: number
           reorder_at?: number
+          sizes?: string[]
           sku: string
+          slug?: string | null
           status?: string
           stock?: number
           updated_at?: string
         }
         Update: {
           category?: string
+          colours?: string[]
           cost_kobo?: number
           created_at?: string
           description?: string
           id?: string
           image_url?: string | null
+          is_published?: boolean
           name?: string
           price_kobo?: number
           reorder_at?: number
+          sizes?: string[]
           sku?: string
+          slug?: string | null
           status?: string
           stock?: number
           updated_at?: string
